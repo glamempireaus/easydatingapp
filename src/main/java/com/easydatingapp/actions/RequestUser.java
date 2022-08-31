@@ -1,4 +1,4 @@
-package com.easydatingapp;
+package com.easydatingapp.actions;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

@@ -1,4 +1,4 @@
-package com.easydatingapp;
+package com.easydatingapp.actions;
 
 public class RequestUserMessage 
 {

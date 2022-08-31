@@ -1,5 +1,8 @@
-package com.easydatingapp;
+package com.easydatingapp.rest;
 
+
+import com.easydatingapp.RequestUser;
+import com.easydatingapp.RequestUserMessage;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,7 +17,7 @@ import jakarta.ws.rs.core.MediaType;
 
 
 @Path("/")
-public class UserController 
+public class Controllers 
 {
     @Context ServletContext context;
     @Context HttpServletRequest httpServletRequest;
@@ -24,7 +27,7 @@ public class UserController
     @Path("/requestUser")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
-    public RequestUserMessage requestUserRequest(@FormParam("user") String user)
+    public RequestUserMessage requestUser(@FormParam("user") String user)
     {
       return RequestUser.requestUser(user, httpServletRequest, httpServletResponse);
     }
