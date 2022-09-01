@@ -43,10 +43,12 @@ public class User
     public String getPassword() {return password;}
     public void setPassword(String password) { this.password = password; }
     
+    @Column(name="dateOfBirth", nullable=false)
     private GregorianCalendar dateOfBirth;
     public GregorianCalendar getDateOfBirth() {return dateOfBirth;}
     public void setDateOfBirth(GregorianCalendar dateOfBirth) { this.dateOfBirth = dateOfBirth; }
 
+    @Column(name="gender", nullable=false)
     private Gender gender;
     public Gender getGender() {return gender;}
     public void setGender(Gender gender) { this.gender = gender; }

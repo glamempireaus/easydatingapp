@@ -3,11 +3,6 @@ package com.easydatingapp.data;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.List;
-
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.persistence.Query;
-import jakarta.transaction.Transactional;
 
 public class PasswordHashing 
 {
@@ -57,18 +52,19 @@ public class PasswordHashing
 		String passwordHash = generatePasswordHash(password, salt);
 		
 		// fetch user's password hash in database
-		Query passwordQuery = Persistence._entityManager.createQuery("SELECT password FROM Users u WHERE u.userid = :userId");
-		passwordQuery.setParameter("userId", userId);
-		passwordQuery.setParameter("passwordHash", passwordHash);
-		passwordQuery.setMaxResults(1);
+		/*
+		 * Query passwordQuery = Persistence._entityManager.
+		 * createQuery("SELECT password FROM Users u WHERE u.userid = :userId");
+		 * passwordQuery.setParameter("userId", userId);
+		 * passwordQuery.setParameter("passwordHash", passwordHash);
+		 * passwordQuery.setMaxResults(1);
+		 */
 		
-		// compare password
-		Object dbPassword = passwordQuery.getSingleResult();
-		
-		if (dbPassword == passwordHash)
-		{
-			return 1;
-		}
+		/*
+		 * // compare password Object dbPassword = passwordQuery.getSingleResult();
+		 * 
+		 * if (dbPassword == passwordHash) { return 1; }
+		 */
 		
 		return 0;
 	}

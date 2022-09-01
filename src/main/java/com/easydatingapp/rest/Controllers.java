@@ -1,8 +1,8 @@
 package com.easydatingapp.rest;
 
 
-import com.easydatingapp.RequestUser;
-import com.easydatingapp.RequestUserMessage;
+import com.easydatingapp.actions.RequestUser;
+import com.easydatingapp.actions.RequestUserMessage;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,7 +14,6 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
-
 
 @Path("/")
 public class Controllers 
