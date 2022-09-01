@@ -8,8 +8,9 @@ public class PasswordHashing
 {
 	public static String _saltSecret = "YO BROSKI!!";
 	
-	private static String generatePasswordHash(String passwordToHash, byte[] salt) {
+	private static String generatePasswordHash(String passwordToHash) {
         
+		byte[] salt = generateSalt(_saltSecret);
 	    String passwordHash = null;
 	    try 
 	    {
@@ -48,8 +49,7 @@ public class PasswordHashing
 	public static int checkPassword(String password, String userId)
 	{
 		// generate hashed password from passed in password
-		byte[] salt = generateSalt(_saltSecret);
-		String passwordHash = generatePasswordHash(password, salt);
+		String passwordHash = generatePasswordHash(password);
 		
 		// fetch user's password hash in database
 		/*

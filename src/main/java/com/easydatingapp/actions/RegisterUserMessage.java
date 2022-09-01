@@ -1,8 +1,7 @@
 package com.easydatingapp.actions;
 
-public class RequestUserMessage 
+public class RegisterUserMessage 
 {
   public boolean authenticated;
-  public String users;
 }
 

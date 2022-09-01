@@ -9,9 +9,9 @@ import jakarta.persistence.PersistenceUnit;
 public class PersistenceManager
 {
 	@PersistenceUnit
-	public static EntityManagerFactory _entityManagementFactory = Persistence.createEntityManagerFactory("easydating-pu");
+	public static EntityManagerFactory _entityManagerFactory = Persistence.createEntityManagerFactory("easydating-pu");
 	
 	@PersistenceContext
-	public static EntityManager _entityManager = _entityManagementFactory.createEntityManager(); 
+	public static EntityManager _entityManager = _entityManagerFactory.createEntityManager(); 
 }
 

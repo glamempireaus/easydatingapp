@@ -55,15 +55,18 @@ public class User
 
     // dating data
     
+    @Column(name="sexualPreference", nullable=false)
     private SexualPreference sexualPreference;
     public SexualPreference getSexualPreference() {return sexualPreference;}
     public void setSexualPreference(SexualPreference sexualPreference) { this.sexualPreference = sexualPreference; }
     
+    @Column(name="sexualDesire", nullable=false)
     private Set<SexualDesire> sexualDesires;
     public Set<SexualDesire> getSexualDesires() {return sexualDesires;}
     public Boolean addSexualDesire(SexualDesire sexualDesire){return sexualDesires.add(sexualDesire);}
     public Boolean removeSexualDesires(SexualDesire sexualDesire) {return sexualDesires.remove(sexualDesire);}
 
+    @Column(name="personalityType", nullable=false)
     private PersonalityType personalityType;
     public PersonalityType getPersonalityType() {return personalityType;}
     public void setPersonalityType(PersonalityType personalityType) { this.personalityType = personalityType; }
@@ -109,14 +112,12 @@ public class User
         OTHER
     }
 
-    public User(String email, String firstName, String lastName, String password, GregorianCalendar dateOfBirth, Gender gender)
+    public User(String email, String firstName, String lastName, String password)
     {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
-        this.dateOfBirth = dateOfBirth;
-        this.gender = gender;
     }
 
     public int hashCode() 
