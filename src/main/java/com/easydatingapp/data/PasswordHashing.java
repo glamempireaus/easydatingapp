@@ -6,13 +6,10 @@ import java.security.SecureRandom;
 
 public class PasswordHashing 
 {
-	public static String _saltSecret = "YO BROSKI!!";
-	
-	private static String generatePasswordHash(String passwordToHash) {
-        
-		byte[] salt = generateSalt(_saltSecret);
+	public static String generateHash(String passwordToHash, byte[] salt) 
+	{
 	    String passwordHash = null;
-	    try 
+	    try
 	    {
 	        MessageDigest md = MessageDigest.getInstance("SHA-512");
 	        md.update(salt);
@@ -33,39 +30,13 @@ public class PasswordHashing
 	    return passwordHash;
 	}
 	
-	public static byte[] generateSalt(String input) 
+	public static byte[] generateSalt() 
 	{
 	    byte[] salt = new byte[16];
-		try
-		{
-		    SecureRandom sr = SecureRandom.getInstance(input);
-		    sr.nextBytes(salt);
-		}
-		catch (NoSuchAlgorithmException e) {e.printStackTrace();}
-	    return salt;
 
-	}
-	
-	public static int checkPassword(String password, String userId)
-	{
-		// generate hashed password from passed in password
-		String passwordHash = generatePasswordHash(password);
-		
-		// fetch user's password hash in database
-		/*
-		 * Query passwordQuery = Persistence._entityManager.
-		 * createQuery("SELECT password FROM Users u WHERE u.userid = :userId");
-		 * passwordQuery.setParameter("userId", userId);
-		 * passwordQuery.setParameter("passwordHash", passwordHash);
-		 * passwordQuery.setMaxResults(1);
-		 */
-		
-		/*
-		 * // compare password Object dbPassword = passwordQuery.getSingleResult();
-		 * 
-		 * if (dbPassword == passwordHash) { return 1; }
-		 */
-		
-		return 0;
+	    SecureRandom sr = new SecureRandom();
+	    sr.nextBytes(salt);
+	    
+	    return salt;
 	}
 }

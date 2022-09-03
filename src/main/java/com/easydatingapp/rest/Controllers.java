@@ -1,8 +1,7 @@
 package com.easydatingapp.rest;
 
 
-import com.easydatingapp.actions.RegisterUser;
-import com.easydatingapp.actions.RegisterUserMessage;
+import com.easydatingapp.rest.messages.RegisterUserMessage;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,7 +15,7 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 
 @Path("/")
-public class RestControllers 
+public class Controllers 
 {
     @Context ServletContext context;
     @Context HttpServletRequest httpServletRequest;
@@ -28,6 +27,6 @@ public class RestControllers
     @Produces(MediaType.APPLICATION_JSON)
     public RegisterUserMessage registerUser(@FormParam("email") String email, @FormParam("password") String password, @FormParam("firstName") String firstName, @FormParam("lastName")  String lastName)
     {
-      return RegisterUser.registerUser(email, password, firstName, lastName, httpServletRequest, httpServletResponse);
+      return Actions.registerUser(email, password, firstName, lastName, httpServletRequest, httpServletResponse);
     }
 }
