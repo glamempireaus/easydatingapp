@@ -13,22 +13,17 @@ public class Database
 {
 	public static String username = "bodhi";
 	public static String password = "test123";
-	public static String connectionUrl = "jdbc:postgres://localhost:easydating";
+	public static String connectionUrl = "jdbc:postgresql://localhost/easydating";
 	public static Connection connection;
 	
 	public static void init()
 	{
-		
-		
-	    Properties connectionProperties = new Properties();
-	    connectionProperties.put("postgres", username);
-	    connectionProperties.put("1212", password);
-
 	    try
 	    {
-	    	connection = DriverManager.getConnection(connectionUrl, connectionProperties);
+			Class.forName("org.postgresql.Driver");
+	    	connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/easydating?currentSchema=public&user=postgres&password=1212");
 	    }
-	    catch (SQLException e)
+	    catch (SQLException | ClassNotFoundException e)
 	    {
 	    	e.printStackTrace();
 	    	

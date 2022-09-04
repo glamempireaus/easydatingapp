@@ -7,18 +7,18 @@
 <title>Test Form</title>
 </head>
 <body>
- <form action="api/requestUser" method="POST">
+ <form action="api/registerUser" method="POST">
   <label for="email">Email:</label><br>
-  <input type="text" id="email" name="email"><br>
+  <input value="hello@gmail.com" type="text" id="email" name="email"><br>
   
   <label for="password">Password:</label><br>
-  <input type="text" id="password" name="password">
+  <input value="hello123" type="text" id="password" name="password">
   
   <label for="firstName">First Name:</label><br>
-  <input type="text" id="firstName" name="firstName"><br>
+  <input value="bodhi" type="text" id="firstName" name="firstName"><br>
   
   <label for="lastName">Last name:</label><br>
-  <input type="text" id="lastName" name="lastName">
+  <input value="judd" type="text" id="lastName" name="lastName">
   
   <input type="submit">
 </form>

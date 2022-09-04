@@ -22,7 +22,7 @@ public class Controllers
     @Context HttpServletResponse httpServletResponse;
 
     @POST
-    @Path("/requestUser")
+    @Path("/registerUser")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
     public RegisterUserMessage registerUser(@FormParam("email") String email, @FormParam("password") String password, @FormParam("firstName") String firstName, @FormParam("lastName")  String lastName)

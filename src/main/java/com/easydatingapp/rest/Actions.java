@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 
 import com.easydatingapp.data.Database;
 import com.easydatingapp.data.PasswordHashing;
@@ -59,7 +60,7 @@ public class Actions
         byte[] salt = PasswordHashing.generateSalt();
 		String processedPassword = PasswordHashing.generateHash(password, salt);
 		
-        // check for duplicate email address
+        // check for a duplicate email address
 
 		try
 		{
@@ -72,32 +73,6 @@ public class Actions
 			
 			if (resultSet.next())
 			{
-				registerUserMessage.errorCode = 4;
-	        	return registerUserMessage;
-			}
-			
-		}
-		catch (SQLException e)
-		{
-	    	e.printStackTrace();
-		}
-        
-        // place into database
-        
-		try
-		{
-			String query = "INSERT INTO users (email, passwordHash, firstName, lastName) VALUES (?, ?, ?, ?)";
-
-			PreparedStatement statement = Database.connection.prepareStatement(query);
-			statement.setString(1, processedEmail);
-			statement.setString(2, processedPassword);
-			statement.setString(3, processedFirstName);
-			statement.setString(4, processedLastName);
-			
-			ResultSet resultSet = statement.executeQuery();	
-			
-			if (!resultSet.next())
-			{
 				registerUserMessage.errorCode = 5;
 	        	return registerUserMessage;
 			}
@@ -106,12 +81,44 @@ public class Actions
 		catch (SQLException e)
 		{
 	    	e.printStackTrace();
+	    	
+			registerUserMessage.errorCode = 100;
+        	return registerUserMessage;
+		}
+        
+        // place into database
+        
+		try
+		{
+			String query = "INSERT INTO users (email, passwordhash, firstname, lastname, passwordsalt, creationtimestamp) VALUES (?, ?, ?, ?, ?, ?)";
+
+			PreparedStatement statement = Database.connection.prepareStatement(query);
+			statement.setString(1, processedEmail);
+			statement.setString(2, processedPassword);
+			statement.setString(3, processedFirstName);
+			statement.setString(4, processedLastName);
+			statement.setString(5, salt.toString());
+			statement.setDate(6, new java.sql.Date(new java.util.Date(System.currentTimeMillis()).getTime()));
+			
+			int queryResult = statement.executeUpdate();
+			if (queryResult != 1)
+			{
+				registerUserMessage.errorCode = 100;
+	        	return registerUserMessage;
+			}
+			
+		}
+		catch (SQLException e)
+		{
+	    	e.printStackTrace();
+	    	
+	    	registerUserMessage.errorCode = 10;
+        	return registerUserMessage;
 		}
         
         
         // authenticate user
         registerUserMessage.authenticated = true;
-        
         return registerUserMessage;
     }
     

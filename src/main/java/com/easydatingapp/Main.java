@@ -14,9 +14,13 @@ public class Main
 	@PostConstruct
     public void main()
     {
-    	Database.init();
-    	
         init();
+		
+    	System.out.println("Server Initialised.");
+        
+    	Database.init();
+        
+        System.out.println("Database Initialised.");
     }
 
     public static void init()

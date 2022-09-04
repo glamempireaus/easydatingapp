@@ -34,7 +34,7 @@ public class User
     public void setLastName(String lastName) { this.lastName = lastName; }
 
     public String getPassword() {return password;}
-    public void setPassword(String password) { this.password = PasswordHashing.generateHash(password); }
+    public void setPassword(String password) { this.password = password; }
    
     public GregorianCalendar getDateOfBirth() {return dateOfBirth;}
     public void setDateOfBirth(GregorianCalendar dateOfBirth) { this.dateOfBirth = dateOfBirth; }
