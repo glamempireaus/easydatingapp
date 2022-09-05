@@ -3,10 +3,6 @@ package com.easydatingapp.data;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
-import jakarta.annotation.PostConstruct;
-
-import jakarta.ejb.Startup;
 
 
 public class Database

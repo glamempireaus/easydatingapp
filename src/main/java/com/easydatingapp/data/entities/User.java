@@ -3,8 +3,6 @@ package com.easydatingapp.data.entities;
 import java.util.GregorianCalendar;
 import java.util.Set;
 
-import com.easydatingapp.data.PasswordHashing;
-
 public class User
 {
     // account data
