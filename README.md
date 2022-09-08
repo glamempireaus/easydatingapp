@@ -1,7 +1,7 @@
 # EasyDating
 
-Frontend written in React using Typescript. 
-Backend written in Java using JakartaEE via TomEE.
-Database is Postgres.
+Future dating webapp.
 
-NodeJS server talks to Tomcat through RESTful API using JAX-RS. 
+Frontend node server written with React/Typescript. 
+Backend written with Java using JakartaEE via TomEE.
+Database is Postgres.
