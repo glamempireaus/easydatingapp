@@ -49,7 +49,7 @@ public class Sanitize
 
   public static String alias(String in)
   {
-	  return in.replaceAll("[^\\p{Alpha}\\p{Digit}\\Q_.\\E]", "").trim(); // no hyphen so can't clash with login
+	  return in.replaceAll("[^\\p{Alpha}\\p{Digit}\\Q_.\\E]", "").trim();
   }  
   
   public static String email(String in)
@@ -91,12 +91,6 @@ public class Sanitize
   {
 	  return in.replaceAll("[^\\p{Alpha}\\p{Digit} &/()\\-#.,;:']", "").trim();
   }    
-  
-  public static String businessLevel(String in)
-  {
-	  return in.replaceAll("[^\\p{Alpha}\\p{Digit} &/()\\-#.,;:']", "").trim();
-  }  
-  
   
   public static String ccValidation(String in)
   {

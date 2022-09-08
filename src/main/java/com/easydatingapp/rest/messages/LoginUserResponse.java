@@ -1,9 +1,10 @@
 package com.easydatingapp.rest.messages;
 
-public class RegisterUserResponse
+public class LoginUserResponse
 {
-	public boolean authenticated;
 	public String sessionId;
+	
+	public boolean authenticated;
 	public int errorCode;
 }
 
