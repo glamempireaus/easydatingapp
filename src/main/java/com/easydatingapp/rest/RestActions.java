@@ -6,8 +6,6 @@ import java.sql.SQLException;
 
 import com.easydatingapp.data.Database;
 import com.easydatingapp.data.Hashing;
-import com.easydatingapp.rest.messages.AuthoriseUserRequest;
-import com.easydatingapp.rest.messages.AuthoriseUserResponse;
 import com.easydatingapp.rest.messages.LoginUserRequest;
 import com.easydatingapp.rest.messages.LoginUserResponse;
 import com.easydatingapp.rest.messages.RegisterUserRequest;
@@ -59,7 +57,7 @@ public class RestActions
 		// get password hash
 
 		byte[] salt = Hashing.generateSalt();
-		String passwordHash = Hashing.generateHashWithSalt(request.password, salt);
+		String passwordHash = Hashing.generateHashUsingSalt(request.password, salt);
 
 		// check for a duplicate email address
 
@@ -86,7 +84,7 @@ public class RestActions
 			return response;
 		}
 
-		// place into database
+		// place processed input + hash into database
 
 		try
 		{
@@ -154,7 +152,7 @@ public class RestActions
 
 			ResultSet resultSet = statement.executeQuery();
 
-			// handle incorrect email
+			// check if incorrect email
 
 			if (!resultSet.next())
 			{
@@ -174,9 +172,9 @@ public class RestActions
 
 		// create password hash
 
-		String passwordHash = Hashing.generateHashWithSalt(request.password, userSalt);
+		String passwordHash = Hashing.generateHashUsingSalt(request.password, userSalt);
 
-		// attempt login with hashed password is correct
+		// attempt login with hashed password
 
 		try
 		{
@@ -204,11 +202,9 @@ public class RestActions
 			return response;
 		}
 
-		// create new session id based on their password + date.
+		// create a new session hash
 
-		byte[] salt = Hashing.generateSalt();
-
-		String sessionId = Hashing.generateHashWithSalt("test", salt);
+		String sessionHash = Hashing.generateHashUsingSalt(request.email, Hashing.generateSalt());
 
 		// store session hash
 
@@ -218,7 +214,7 @@ public class RestActions
 
 			PreparedStatement statement = Database.connection.prepareStatement(query);
 			statement.setInt(1, userId);
-			statement.setString(2, sessionId);
+			statement.setString(2, sessionHash);
 
 			int queryResult = statement.executeUpdate();
 			if (queryResult != 1)
@@ -235,42 +231,9 @@ public class RestActions
 			return response;
 		}
 
-		response.sessionId = sessionId;
-		response.authenticated = true;
+		// build response object
 
-		return response;
-	}
-
-	public static AuthoriseUserResponse authoriseUser(AuthoriseUserRequest request,
-			HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
-	{
-		AuthoriseUserResponse response = new AuthoriseUserResponse();
-
-		// check if sessionid equals response's sessionid
-
-		try
-		{
-			String query = "SELECT id FROM usersessions WHERE sessionid = ?";
-
-			PreparedStatement statement = Database.connection.prepareStatement(query);
-			statement.setString(1, request.sessionId);
-
-			ResultSet resultSet = statement.executeQuery();
-
-			if (resultSet.next())
-			{
-				response.errorCode = 1;
-				return response;
-			}
-
-		} catch (SQLException e)
-		{
-			e.printStackTrace();
-
-			response.errorCode = 100;
-			return response;
-		}
-
+		response.sessionToken = sessionHash;
 		response.authenticated = true;
 
 		return response;

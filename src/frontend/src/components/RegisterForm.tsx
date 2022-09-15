@@ -1,13 +1,21 @@
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 import registerUser from "rest/registerUser";
 import './RegisterForm.css';
 
 const RegisterForm = () => {
     const [message, setMessage] = useState<string>("");
+    const [cookies, setCookie] = useCookies(["isLoggedIn"]);
+    const navigate = useNavigate();
+
     const registerForm = useRef<HTMLFormElement>(null);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+
+        // get form's data
+
         const formData = new FormData(registerForm.current!);
 
         const email = formData.get('email') as string;
@@ -15,14 +23,41 @@ const RegisterForm = () => {
         const firstName = formData.get('firstname') as string;
         const lastName = formData.get('lastname') as string;
 
-        const returnCode = await registerUser(email, password, firstName, lastName);
+        // attempt register (hang)
 
-        setMessage(returnCode[1]);
+        const response = await registerUser(email, password, firstName, lastName);
 
-        // on successful register
+        // handle response
+        switch (response.errorCode) {
+            case 0:
+                setMessage("You have registered successfully.");
 
-        if (returnCode[0] == 0) {
-            //isLoggedIn = true;
+                setCookie("isLoggedIn", "true", {
+                    path: "/"
+                });
+
+                navigate('/');
+                break;
+            case 1:
+                setMessage("Email is invalid.");
+                break;
+            case 2:
+                setMessage("Password is invalid.");
+                break;
+            case 3:
+                setMessage("Firstname is invalid.");
+                break;
+            case 4:
+                setMessage("Lastname is invalid.");
+                break;
+            case 5:
+                setMessage("This email already exists. Please try logging in.");
+                break;
+            case 100:
+                setMessage("There's a problem with our database. Try again later.");
+                break;
+            default:
+                setMessage("There's a problem with our backend server. Try again later.");
         }
     }
     return (

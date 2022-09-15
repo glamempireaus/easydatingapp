@@ -6,7 +6,7 @@ import java.security.SecureRandom;
 
 public class Hashing
 {
-	public static String generateHashWithSalt(String input, byte[] salt) 
+	public static String generateHashUsingSalt(String input, byte[] salt) 
 	{
 	    String hash = null;
 	    try

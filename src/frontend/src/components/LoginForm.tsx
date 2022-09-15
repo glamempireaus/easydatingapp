@@ -1,26 +1,65 @@
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from 'react';
 import loginUser from "rest/loginUser";
 import './LoginForm.css';
+import { Cookies } from "react-cookie";
+
 
 const LoginForm = () => {
     const [message, setMessage] = useState<string>("");
     const loginForm = useRef<HTMLFormElement>(null);
+    const navigate = useNavigate();
+    const cookies = new Cookies();
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+
+        // get form data
+
         const formData = new FormData(loginForm.current!);
 
         const email = formData.get('email') as string;
         const password = formData.get('password') as string;
 
-        const returnCode = await loginUser(email, password);
+        // attempt login (hang)
 
-        setMessage(returnCode[1]);
+        const response = await loginUser(email, password);
 
-        // on successful login
+        switch (response.errorCode) {
+            case 0:
+                setMessage("You have logged in successfully.");
 
-        if (returnCode[0] == 0) {
-            //isLoggedIn = true;
+                // set session token cookies
+
+                if (response.errorCode == 0) {
+                    cookies.set("sessionToken", response.sessionToken, {
+                        path: "/"
+                    });
+                    cookies.set("isLoggedIn", true, {
+                        path: "/"
+                    });
+                }
+
+                // navigate to main after timeout (to show message)
+
+                setTimeout(() => navigate("/"), 500);
+
+                break;
+            case 1:
+                setMessage("Email is empty.");
+                break;
+            case 2:
+                setMessage("Password is invalid.");
+                break;
+            case 3:
+                setMessage("Email is invalid.");
+                break;
+            case 100:
+                setMessage("There's a problem with our database. Try again later.");
+                break;
+            default:
+                setMessage("There's a problem with our backend server. Try again later.");
         }
     }
     return (

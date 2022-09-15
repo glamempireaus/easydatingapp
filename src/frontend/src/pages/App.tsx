@@ -1,5 +1,6 @@
 import React, { createContext, useState } from 'react';
 import { useCookies } from 'react-cookie';
+import { Cookies } from "react-cookie";
 import logo from './logo.svg';
 import './App.css';
 
@@ -11,7 +12,7 @@ import MainMenu from '../components/MainMenu';
 
 const App = () => {
 
-    const cookies = useCookies();
+    const cookies = new Cookies();
 
     const UserContext = createContext({
         isLoggedIn: false,

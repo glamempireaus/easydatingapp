@@ -6,29 +6,24 @@ import Login from 'pages/Login';
 import Register from 'pages/Register';
 import reportWebVitals from 'reportWebVitals';
 import { Cookies } from 'react-cookie';
-
-import { BrowserRouter as Router, Routes, Route }
-    from 'react-router-dom';
-
-const isLoggedIn: boolean = false;
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 
+var isLoggedIn;
+var sessionToken;
+
+const cookies = new Cookies();
+
 const init = () => {
-    console.log("Easy Dating Webapp initialising...")
+    console.log("Easy Dating initialising...")
 
-    const cookies = new Cookies();
-
-    // get session token
-
-    const sessionId = cookies.get('sessionId');
-
-    if (sessionId != null) {
-
+    // get logged in status
+    if (cookies.get('isLoggedIn') != "true") {
+        cookies.set('isLoggedIn', "false", { path: '/' });
     }
-
 }
 
 init();
@@ -37,9 +32,21 @@ root.render(
     <React.StrictMode>
         <Router>
             <Routes>
-                <Route path='/' element={<App />} />
+                <Route path="/"
+                    element={
+                        isLoggedIn ? (
+                            <Navigate replace to="/login" />
+                        ) : (
+                            <App />
+                        )
+                    }
+                />
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />
+                <Route
+                    path="*"
+                    element={<Navigate to="/" replace />}
+                />
             </Routes>
         </Router>
     </React.StrictMode>

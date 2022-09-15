@@ -1,7 +1,5 @@
 package com.easydatingapp.rest;
 
-import com.easydatingapp.rest.messages.AuthoriseUserRequest;
-import com.easydatingapp.rest.messages.AuthoriseUserResponse;
 import com.easydatingapp.rest.messages.LoginUserRequest;
 import com.easydatingapp.rest.messages.LoginUserResponse;
 import com.easydatingapp.rest.messages.RegisterUserRequest;
@@ -42,16 +40,8 @@ public class RestControllers
 	@Produces(MediaType.APPLICATION_JSON)
 	public LoginUserResponse loginUser(LoginUserRequest request)
 	{
+//		Logger.toConsole(httpServletRequest.getRemoteAddr());
 		return RestActions.loginUser(request, httpServletRequest, httpServletResponse);
-	}
 
-	@POST
-	@Path("/authoriseUser")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public AuthoriseUserResponse authoriseUser(AuthoriseUserRequest request)
-	{
-		return RestActions.authoriseUser(request, httpServletRequest, httpServletResponse);
 	}
-
 }
