@@ -1,6 +1,22 @@
 .MainMenu {
-    padding: 12px 0;
-    font-size: 12px;
-    margin: 0 0 3rem 0;
-    background-color: darkgray;
+    width: 100%;
+    min-height: 1rem;
+    display: flex;
+    flex-direction: row;
+    background-color: #ff5555;
+    border-bottom: 1px solid white;
 }
+
+    .MainMenu a {
+        padding: 1rem 1rem 1rem 1rem;
+        font-size: 1.5rem;
+        white-space: nowrap;
+        text-decoration: none;
+        color: #FFFFFF;
+        transition-duration: 0.4s;
+    }
+
+        .MainMenu a:hover {
+            background-color: #4CAF50;
+            color: white;
+        }

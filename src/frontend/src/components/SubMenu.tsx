@@ -3,8 +3,9 @@ import './SubMenu.css';
 
 const SubMenu = () => {
     return (
-        <div className="SubMenu">
-            EasyDating
+        <div className="SubMenu container">
+            <a href="">EasyDating</a>
+
         </div>
     )
 }

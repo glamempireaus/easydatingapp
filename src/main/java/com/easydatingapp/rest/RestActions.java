@@ -10,6 +10,8 @@ import com.easydatingapp.rest.messages.LoginUserRequest;
 import com.easydatingapp.rest.messages.LoginUserResponse;
 import com.easydatingapp.rest.messages.RegisterUserRequest;
 import com.easydatingapp.rest.messages.RegisterUserResponse;
+import com.easydatingapp.rest.messages.FetchUserMatchesRequest;
+import com.easydatingapp.rest.messages.FetchUserMatchesResponse;
 import com.easydatingapp.utils.Sanitize;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -236,6 +238,13 @@ public class RestActions
 		response.sessionToken = sessionHash;
 		response.authenticated = true;
 
+		return response;
+	}
+
+	public static FetchUserMatchesResponse fetchUserMatches(FetchUserMatchesRequest request, HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse)
+	{
+		FetchUserMatchesResponse response = new FetchUserMatchesResponse();
 		return response;
 	}
 }

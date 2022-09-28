@@ -1,13 +1,13 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
-import registerUser from "rest/registerUser";
+import { Cookies } from "react-cookie";
+import RestCalls from "rest/RestCalls";
 import './RegisterForm.css';
 
 const RegisterForm = () => {
     const [message, setMessage] = useState<string>("");
-    const [cookies, setCookie] = useCookies(["isLoggedIn"]);
     const navigate = useNavigate();
+    const cookies = new Cookies();
 
     const registerForm = useRef<HTMLFormElement>(null);
 
@@ -25,14 +25,14 @@ const RegisterForm = () => {
 
         // attempt register (hang)
 
-        const response = await registerUser(email, password, firstName, lastName);
+        const response = await RestCalls.registerUser(email, password, firstName, lastName);
 
         // handle response
         switch (response.errorCode) {
             case 0:
                 setMessage("You have registered successfully.");
 
-                setCookie("isLoggedIn", "true", {
+                cookies.set("isLoggedIn", "true", {
                     path: "/"
                 });
 

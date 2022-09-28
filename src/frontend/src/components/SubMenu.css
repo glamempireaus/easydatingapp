@@ -1,5 +1,21 @@
 .SubMenu {
-    padding: 12px 0;
+    display: flex;
+    flex-direction: row;
     font-size: 12px;
-    background-color: grey;
+    background-color: #bebbff;
+    color: #ff5555;
 }
+
+    .SubMenu a {
+        padding: .7rem 1rem .7rem 1rem;
+        font-size: 1.2rem;
+        white-space: nowrap;
+        text-decoration: none;
+        color: #FFFFFF;
+        transition-duration: 0.4s;
+    }
+
+        .SubMenu a:hover {
+            background-color: #4CAF50;
+            color: white;
+        }

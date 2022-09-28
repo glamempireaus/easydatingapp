@@ -1,10 +1,9 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from 'react';
-import loginUser from "rest/loginUser";
+import RestCalls from "rest/RestCalls";
 import './LoginForm.css';
 import { Cookies } from "react-cookie";
-
+import AppConstants from '../contexts/Data';
 
 const LoginForm = () => {
     const [message, setMessage] = useState<string>("");
@@ -24,7 +23,7 @@ const LoginForm = () => {
 
         // attempt login (hang)
 
-        const response = await loginUser(email, password);
+        const response = await RestCalls.loginUser(email, password);
 
         switch (response.errorCode) {
             case 0:
@@ -43,7 +42,7 @@ const LoginForm = () => {
 
                 // navigate to main after timeout (to show message)
 
-                setTimeout(() => navigate("/"), 500);
+                setTimeout(() => navigate(AppConstants.HOME_URL), 500);
 
                 break;
             case 1:
@@ -64,7 +63,7 @@ const LoginForm = () => {
     }
     return (
         <div className="LoginForm">
-            {message}
+            <p className="LoginFormMessage">{message}</p>
             <form id="loginform" ref={loginForm} onSubmit={handleSubmit} >
                 <label htmlFor="email">Email:</label>
                 <input defaultValue="hello@gmail.com" type="text" id="email" name="email" />

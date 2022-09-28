@@ -1,5 +1,7 @@
 package com.easydatingapp.rest;
 
+import com.easydatingapp.rest.messages.FetchUserMatchesRequest;
+import com.easydatingapp.rest.messages.FetchUserMatchesResponse;
 import com.easydatingapp.rest.messages.LoginUserRequest;
 import com.easydatingapp.rest.messages.LoginUserResponse;
 import com.easydatingapp.rest.messages.RegisterUserRequest;
@@ -40,8 +42,16 @@ public class RestControllers
 	@Produces(MediaType.APPLICATION_JSON)
 	public LoginUserResponse loginUser(LoginUserRequest request)
 	{
-//		Logger.toConsole(httpServletRequest.getRemoteAddr());
 		return RestActions.loginUser(request, httpServletRequest, httpServletResponse);
-
 	}
+
+	@POST
+	@Path("/fetchUserMatches")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public FetchUserMatchesResponse fetchUserMatches(FetchUserMatchesRequest request)
+	{
+		return RestActions.fetchUserMatches(request, httpServletRequest, httpServletResponse);
+	}
+
 }

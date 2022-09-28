@@ -1,3 +1,9 @@
 .LoginForm {
-    width: 100%;
+    text-align: center;
+}
+
+.LoginFormMessage {
+    height: 1rem;
+    margin: 0 0 0 0;
+    display: inline-block;
 }

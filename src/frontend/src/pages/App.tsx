@@ -1,41 +1,56 @@
-import React, { createContext, useState } from 'react';
-import { useCookies } from 'react-cookie';
+import React, { createContext } from 'react';
+import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from 'react';
 import { Cookies } from "react-cookie";
-import logo from './logo.svg';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import AppConstants from '../contexts/Data';
+
 import './App.css';
 
-import Footer from '../components/Footer';
-import Header from '../components/Header';
-import Main from '../components/Main';
-import SubMenu from '../components/SubMenu';
-import MainMenu from '../components/MainMenu';
+import Home from '../pages/Home';
+import Login from '../pages/Login';
+import Logout from '../pages/Logout';
+import Register from '../pages/Register';
+import Messages from '../pages/Messages';
+import Profile from '../pages/Profile';
 
 const App = () => {
 
     const cookies = new Cookies();
+    const currentPath = window.location.pathname;
 
-    const UserContext = createContext({
-        isLoggedIn: false,
+    console.log("Easy Dating App started.")
 
-        userName: "",
-        firstName: "",
-        lastName: "",
-    });
+    // get logged in status, then generate login status
+
+    if (cookies.get('isLoggedIn') != "true") {
+        cookies.set('isLoggedIn', "false", { path: '/' });
+        console.log("You aren't logged in.");
+    }
+    else {
+        console.log("You are logged in.");
+    }
 
     return (
         <div className="App">
-            <div id="headerContainer" className="HeaderContainer">
-                <MainMenu />
-                <SubMenu />
-            </div>
-            <div id="mainContainer" className="MainContainer">
-                <Main />
-            </div>
-            <div id="footerContainer" className="FooterContainer">
-                <Footer />
-            </div>
+            <Router>
+                <Routes>
+                    <Route path={AppConstants.HOME_URL} element={<Home />} />
+                    <Route path={AppConstants.LOGIN_URL} element={<Login />} />
+                    <Route path={AppConstants.LOGOUT_URL} element={<Logout />} />
+                    <Route path={AppConstants.MESSAGES_URL} element={<Messages />} />
+                    <Route path={AppConstants.PROFILE_URL} element={<Profile />} />
+                    <Route path={AppConstants.REGISTER_URL} element={<Register />} />
+                    <Route path="*" element={cookies.get('isLoggedIn') ? <Home /> : <Login />} />
+                </Routes>
+            </Router>
         </div>
     )
 }
 
 export default App;
+export { AppConstants }
+
+
+

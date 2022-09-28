@@ -1,31 +1,27 @@
 import { useRef, useState, useEffect } from "react";
 import { Cookies } from "react-cookie";
-import { useNavigate, Navigate, Link } from "react-router-dom";
-import './Login.css';
+import { useNavigate, Navigate } from "react-router-dom";
+import './Messages.css';
 
-
-import LoginForm from './../components/LoginForm';
 import SubMenu from '../components/SubMenu';
 import MainMenu from '../components/MainMenu';
 import Footer from '../components/Footer';
 
 import AppConstants from '../contexts/Data';
 
-const Login = () => {
+const Messages = () => {
 
     return (
-        <div className="Login">
+        <div className="Messages">
+            <MainMenu />
             <div className="maincontent container">
                 <div>
-                    <h1>Login</h1>
+                    <h1>Messages</h1>
                 </div>
-                <p>Don't have an account? <Link to={AppConstants.REGISTER_URL}>Register now</Link>.</p>
-
-                <LoginForm />
             </div>
             <Footer />
-        </div >
+        </div>
     )
 }
 
-export default Login;
+export default Messages;
