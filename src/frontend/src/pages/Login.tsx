@@ -13,6 +13,13 @@ import AppConstants from '../contexts/Data';
 
 const Login = () => {
 
+    const navigate = useNavigate();
+    const cookies = new Cookies();
+
+    if (cookies.get('isLoggedIn') == "true") {
+        return <Navigate to={AppConstants.HOME_URL} />;
+    }
+
     return (
         <div className="Login">
             <div className="maincontent container">

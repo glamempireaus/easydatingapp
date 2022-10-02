@@ -1,13 +1,16 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Cookies } from "react-cookie";
 import RestCalls from "rest/RestCalls";
 import './RegisterForm.css';
+import AppConstants from '../contexts/Data';
+import AppContext, { AppProvider } from '../contexts/AppContext';
 
 const RegisterForm = () => {
     const [message, setMessage] = useState<string>("");
     const navigate = useNavigate();
     const cookies = new Cookies();
+    const appContext = useContext(AppContext);
 
     const registerForm = useRef<HTMLFormElement>(null);
 
@@ -36,7 +39,11 @@ const RegisterForm = () => {
                     path: "/"
                 });
 
-                navigate('/');
+                appContext.setIsLoggedIn(true);
+                appContext.setUserToken(response.sessionToken);
+
+                setTimeout(() => navigate(AppConstants.HOME_URL), 500);
+
                 break;
             case 1:
                 setMessage("Email is invalid.");

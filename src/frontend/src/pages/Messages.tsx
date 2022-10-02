@@ -11,6 +11,13 @@ import AppConstants from '../contexts/Data';
 
 const Messages = () => {
 
+    const navigate = useNavigate();
+    const cookies = new Cookies();
+
+    if (cookies.get('isLoggedIn') == "false") {
+        return <Navigate to={AppConstants.LOGIN_URL} />;
+    }
+
     return (
         <div className="Messages">
             <MainMenu />

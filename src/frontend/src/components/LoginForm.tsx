@@ -1,15 +1,17 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import RestCalls from "rest/RestCalls";
 import './LoginForm.css';
 import { Cookies } from "react-cookie";
 import AppConstants from '../contexts/Data';
+import { AppContext, AppProvider } from '../contexts/AppContext';
 
 const LoginForm = () => {
     const [message, setMessage] = useState<string>("");
     const loginForm = useRef<HTMLFormElement>(null);
     const navigate = useNavigate();
     const cookies = new Cookies();
+    const appContext = useContext(AppContext);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -38,11 +40,14 @@ const LoginForm = () => {
                     cookies.set("isLoggedIn", true, {
                         path: "/"
                     });
+
+                    appContext.setIsLoggedIn(true);
+                    appContext.setUserToken(response.sessionToken);
+
+                    // navigate to main after timeout (to show message)
+
+                    setTimeout(() => navigate(AppConstants.HOME_URL), 500);
                 }
-
-                // navigate to main after timeout (to show message)
-
-                setTimeout(() => navigate(AppConstants.HOME_URL), 500);
 
                 break;
             case 1:

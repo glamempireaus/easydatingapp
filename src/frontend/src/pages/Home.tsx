@@ -4,11 +4,18 @@ import { useNavigate, Navigate } from "react-router-dom";
 import './Home.css';
 import AppConstants from '../contexts/Data';
 
-import SubMenu from '../components/SubMenu';
 import MainMenu from '../components/MainMenu';
 import Footer from '../components/Footer';
 
 const Home = () => {
+
+    const navigate = useNavigate();
+    const cookies = new Cookies();
+
+    if (cookies.get('isLoggedIn') == "false") {
+        return <Navigate to={AppConstants.LOGIN_URL} />;
+    }
+
     return (
         <div className="Home">
             <MainMenu />

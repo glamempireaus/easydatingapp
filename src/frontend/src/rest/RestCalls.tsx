@@ -1,14 +1,12 @@
-
-
 class RestCalls {
 
-    static endpointUrl = "http://localhost:8080/easydatingapp/api"
+    static endpointUrl = "http://localhost:8080/easydatingapp/api";
 
-    static fetchRequest = async (endpointUrl: string, requestBody: any) => {
+    static fetchRequest = async (endpointCall: string, requestBody: any) => {
 
         var response: any;
         try {
-            response = await fetch(endpointUrl + '/registerUser', {
+            response = await fetch(this.endpointUrl + endpointCall, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -50,7 +48,7 @@ class RestCalls {
             lastName: lastname
         }
 
-        const returnedData = await this.fetchRequest("http://localhost:8080/easydatingapp/api/registerUser", requestBody);
+        const returnedData = await this.fetchRequest('/registerUser', requestBody);
 
         return returnedData;
     }
@@ -63,7 +61,7 @@ class RestCalls {
             password: password,
         }
 
-        const returnedData = await this.fetchRequest("http://localhost:8080/easydatingapp/api/loginUser", requestBody);
+        const returnedData = await this.fetchRequest('/loginUser', requestBody);
 
         return returnedData;
     }

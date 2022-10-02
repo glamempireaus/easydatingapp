@@ -17,9 +17,8 @@ const Register = () => {
     const cookies = new Cookies();
 
     if (cookies.get('isLoggedIn') == "true") {
-        return <Navigate to="/" />;
+        return <Navigate to={AppConstants.HOME_URL} />;
     }
-
     return (
         <div className="Register">
             <div className="maincontent container">
